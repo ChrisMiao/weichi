@@ -14,9 +14,22 @@ public class Board {
     }
 
     public boolean isAvailable(Coordinate coordinate) {
+        if (!isInsideBoundary(coordinate)) return false;
         int x = coordinate.x;
         int y = coordinate.y;
         return board[x][y] == null;
+    }
+
+    public boolean isInsideBoundary(Coordinate coordinate) {
+        int x = coordinate.x;
+        int y = coordinate.y;
+        if (x < 0 || x > dimension) return false;
+        if (y < 0 || y > dimension) return false;
+        return true;
+    }
+
+    public void remove(Coordinate coordinate) {
+        board[coordinate.x][coordinate.y] = null;
     }
 
     public int getDimension() {
@@ -37,6 +50,8 @@ public class Board {
     }
 
     public Coordinate getCoordinate(int x, int y) {
+        Coordinate mock = new Coordinate(x, y, 0);
+        if (!isInsideBoundary(mock)) return null;
         return board[x][y];
     }
 
