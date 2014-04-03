@@ -23,15 +23,18 @@ public class Controller {
         IPlayer currentPlayer;
         if (playerNum == 0) {
             currentPlayer = player1;
-            playerNum = 1;
         } else {
             currentPlayer = player2;
-            playerNum = 0;
         }
 
         currentCoordinate = currentPlayer.play(x, y);
         if (board.isAvailable(currentCoordinate)) {
             board.setCoordinate(currentCoordinate);
+            if (playerNum == 0) {
+                playerNum = 1;
+            } else {
+                playerNum = 0;
+            }
         }
 
         // Logic Rules
@@ -144,9 +147,14 @@ public class Controller {
     }
 
     private void isSurrounding(Coordinate coordinate, Coordinate previous, int layer) {
-        if (visitedMap.containsKey(coordinate) && layer == visitedMap.get(coordinate) + 1
-                && previous != currentCoordinate) {
+        System.out.println("------------");
+        System.out.println(coordinate);
+        System.out.println(visitedMap);
+        System.out.println("------------");
+
+        if (visitedMap.containsKey(coordinate) && layer == visitedMap.get(coordinate) && previous != currentCoordinate) {
             isSurrounding = true;
+            return;
         }
 
         if (visitedMap.containsKey(coordinate)) return;
@@ -199,11 +207,9 @@ public class Controller {
         }
 
         if (!hasNext) {
-            visitedMap.clear();
             isSurrounding = false;
         }
     }
-
 
     public Controller(IPlayer player1, IPlayer player2, Board board) {
         this.playerNum = 0;
