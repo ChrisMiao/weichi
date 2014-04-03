@@ -23,8 +23,8 @@ public class Board {
     public boolean isInsideBoundary(Coordinate coordinate) {
         int x = coordinate.x;
         int y = coordinate.y;
-        if (x < 0 || x > dimension) return false;
-        if (y < 0 || y > dimension) return false;
+        if (x < 0 || x >= dimension) return false;
+        if (y < 0 || y >= dimension) return false;
         return true;
     }
 
@@ -37,14 +37,13 @@ public class Board {
     }
 
     public void setCoordinate(Coordinate coordinate) {
-        if (coordinate == null) {
-            throw new RuntimeException("This coordinate is null!!!");
-        }
+        if (coordinate == null) { throw new RuntimeException("This coordinate is null!!!"); }
         int x = coordinate.x;
         int y = coordinate.y;
         if (board[x][y] != null) {
             throw new RuntimeException("The spot is invalid");
-        } else {
+        }
+        else {
             board[x][y] = coordinate;
         }
     }
@@ -53,6 +52,17 @@ public class Board {
         Coordinate mock = new Coordinate(x, y, 0);
         if (!isInsideBoundary(mock)) return null;
         return board[x][y];
+    }
+
+    public int[][] getPlainBoard() {
+        int[][] plainBoard = new int[dimension][dimension];
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                plainBoard[i][j] = board[i][j] == null ? -1 : board[i][j].crdColor;
+            }
+        }
+
+        return plainBoard;
     }
 
     public static class BoardFactory {

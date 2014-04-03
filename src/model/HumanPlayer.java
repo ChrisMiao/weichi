@@ -18,4 +18,9 @@ public class HumanPlayer implements IPlayer {
     public void setDimension(int n) {
     }
 
+    @Override
+    public int getColor() {
+        return this.clr;
+    }
+
 }

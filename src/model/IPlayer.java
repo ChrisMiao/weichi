@@ -5,5 +5,6 @@ public interface IPlayer {
 
     // 0 - black, 1 - white
     public void setColor(int i);
+    public int getColor();
     public void setDimension(int n);
 }
